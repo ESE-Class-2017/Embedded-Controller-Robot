@@ -47,7 +47,7 @@ void Serial_Comm::Initialize_Port()
 		perror("Failed to load current port config:");
 
 	// Set tth baud rate
-	cfsetispeed(&options, BAUD_RATE);
+	cfsetispeed(&options, (speed_t)9600);
 	cfsetospeed(&options, BAUD_RATE);
 	
 	// Enable reviecer and set local mode
@@ -119,8 +119,9 @@ void Serial_Comm::Write_Port(std::string data)
 {
 	int num;  // Number of characters written to port
 	const char *c = data.c_str();
-	num = write(fd, &c, data.length());
+	num = write(fd, c, data.length());
 	
 	if(num < 0)
 		std::cout << "Write_Port: Write failed" << std::endl;
+	usleep(100);
 }
