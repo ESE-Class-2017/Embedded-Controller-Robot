@@ -1,0 +1,24 @@
+Joystick Commands
+
+Left Stick:
+Up/down: Move the robot forwards and back
+Left/right: turn the robot left/right 
+
+Right Axis:
+Up/down: Move the camera left and right
+Up/down: Move the camera up and down
+
+Start: Home the System
+
+L1: Open the image stream
+L2: Close the image stream
+
+R1: Record audio for DTMF processing
+
+A: Loop A demonstration
+B: Pivot 180 degrees around the right wheel
+X: Take a picture for shape detection
+Y: Loop D demonstration
+
+
+
