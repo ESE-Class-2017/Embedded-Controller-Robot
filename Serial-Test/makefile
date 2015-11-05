@@ -1,6 +1,6 @@
 CC = g++
 
-CFLAGS = -WALL
+CFLAGS = -Wall
 
 default: test
 
@@ -10,7 +10,7 @@ test: test.o comm.o
 test.o: test.cpp comm.h
 	$(CC) $(CFLAGS) -c test.cpp
 
-comm.0: comm.cpp comm.h
+comm.o: comm.cpp comm.h
 	$(CC) $(CFLAGS) -c comm.cpp 
 
 clean:

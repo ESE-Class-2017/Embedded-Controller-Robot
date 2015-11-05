@@ -9,6 +9,10 @@ Version: 00
 #ifndef _COMM_H
 #define _COMM_H
 
+#include <iostream>
+#include <string>
+#include <cstring>
+
 #define BAUD_RATE B9600
 #define SERIAL_PORT "/dev/ttyO4"
 
@@ -20,10 +24,10 @@ class Serial_Comm
 		void Open_Port();
 		void Initialize_Port();
 		void Close_Port();
-		void Write_Port(string);
+		void Write_Port(std::string data);
 	private:
 		bool port_status;
-		int fd
+		int fd;
 };
 
 #endif

@@ -18,7 +18,7 @@ Version: 00
 #include <string>
 #include "comm.h"
 
-Serial_Comm::Serial_Comm():
+Serial_Comm::Serial_Comm()
 {}
 
 void Serial_Comm::Open_Port()
@@ -32,13 +32,13 @@ void Serial_Comm::Open_Port()
 	// Failed to open port
 	if(fd == -1)
 	{
-		cout << "open_port: unable to open port " << SERIAL_PORT << endl;
+		std::cout << "open_port: unable to open port " << SERIAL_PORT << std::endl;
 		exit(1);
 	}
 	else fcntl(fd, F_SETFL, FNDELAY);
 }
 
-void Serial_Comm::Initalize_Port()
+void Serial_Comm::Initialize_Port()
 {
 	struct termios options;
 	
@@ -112,15 +112,16 @@ void Serial_Comm::Initalize_Port()
 void Serial_Comm::Close_Port()
 {
 	// Close Port
-	close(Serial);
+	close(fd);
 }
 
-Void Serial_Comm::Write_Port(string data)
+void Serial_Comm::Write_Port(std::string data)
 {
 	int num;  // Number of characters written to port
+	const char *c = data.c_str();
 
-	num = write(fd, data, data.length());
+	num = write(fd, &c, data.length());
 	
 	if(num < 0)
-		cout << "Write_Port: Write failed" << endl;
+		std::cout << "Write_Port: Write failed" << std::endl;
 }
