@@ -12,6 +12,9 @@ test.o: test.cpp comm.h
 
 comm.o: comm.cpp comm.h
 	$(CC) $(CFLAGS) -c comm.cpp 
+	
+queue.o: queue.cpp queue.h
+	$(CC) $(CFLAGS) -c queue.cpp
 
 clean:
 	$(RM) count *.o *~

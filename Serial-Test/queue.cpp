@@ -3,11 +3,15 @@ Purpose: Class definitions for queue
  Author: Josh Osborne
 */
 
+#include "queue.h"
+
+typedef std::lock_guard<std::mutex> MutexLock;
+
 // Constructor
 Queue::Queue()
 {}
 
-// check to see if queue is empth
+// check to see if queue is empty
 bool Queue::empty()
 {
 	return queue.empty();
@@ -16,14 +20,15 @@ bool Queue::empty()
 // Push packet onto queue
 void Queue::push(const std :: string& packet)
 {
-	// Add mutex lock
+	MutexLock lock(mutex);
+	
 	queue.push(packet);
 }
 
 // pop the string that will be written to serial
 std::string pop()
 {
-	// Add mutex lock
+	MutexLock lock(mutex);
 	
 	std::string temp = queue.front(); //get string to be sent
 	queue.pop(); 					  // delete string from queue
