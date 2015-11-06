@@ -127,17 +127,34 @@ void Serial_Comm::Close_Port()
 	close(fd);
 }
 
-void Serial_Comm::Write_Port(std::string data)
+
+void Serial_Comm::Send_Packet()
+{
+	while(Port_Status)
+	{
+		while(!packet_queue.empty())
+		{
+			std::string packet(packet_queue.pop());
+			std:: cout << "Sending: " << packet << std::endl;
+			Write_Port(packet);
+		}
+	}
+}
+
+bool Serial_Comm::Write_Port(std::string data)
 {
 	int num;  // Number of characters written to port
 	const char *c = data.c_str();
 	
-	while(port_status)
-	{
 		num = write(fd, c, data.length());
 		
+		// check for write error
 		if(num < 0)
+		{
 			std::cout << "Write_Port: Write failed" << std::endl;
-		usleep(100);
-	}
+			return false;
+		}
+		
+		usleep(100); // Does Natesh Think I need this
+		return true;
 }
