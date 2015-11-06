@@ -16,6 +16,7 @@ Version: 00
 #include <termios.h>
 #include <cstring>
 #include <string>
+#include <thread>
 #include "comm.h"
 
 Serial_Comm::Serial_Comm()

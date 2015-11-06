@@ -12,6 +12,7 @@ Version: 00
 #include <iostream>
 #include <string>
 #include <cstring>
+#include <thread>
 
 #define BAUD_RATE B9600
 #define SERIAL_PORT "/dev/ttyO4"
@@ -28,6 +29,7 @@ class Serial_Comm
 	private:
 		bool port_status;
 		int fd;
+		std::thread serial;
 };
 
 #endif
