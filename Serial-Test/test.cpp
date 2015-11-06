@@ -23,9 +23,9 @@ int main()
 	comm1.Initialize_Port();
 
 	for(int i = 0; i < 10000; i++)
-{
+	{
 		comm1.Write_Port("josh");
-}
+	}
 	comm1.Close_Port();
 	return 0;
 }

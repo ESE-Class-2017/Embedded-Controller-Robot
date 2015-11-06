@@ -19,6 +19,7 @@ Version: 00
 #include "comm.h"
 
 Serial_Comm::Serial_Comm()
+:port_status(false)
 {}
 
 void Serial_Comm::Open_Port()
@@ -47,7 +48,7 @@ void Serial_Comm::Initialize_Port()
 		perror("Failed to load current port config:");
 
 	// Set tth baud rate
-	cfsetispeed(&options, (speed_t)9600);
+	cfsetispeed(&options, BAUD_RATE);
 	cfsetospeed(&options, BAUD_RATE);
 	
 	// Enable reviecer and set local mode
@@ -107,10 +108,20 @@ void Serial_Comm::Initialize_Port()
 	//sleep(2); // some people say its nessesary
 	// Flush the output buffer
  	tcflush(fd,TCIOFLUSH); 
+	
+	port_status = true;
+	
+	serial = std::thread(&Serial_Comm::Write_Port, this);
+	
+	
 }
 
 void Serial_Comm::Close_Port()
 {
+	port_status = false;
+	
+	//terminate thread
+	serial.join();
 	// Close Port
 	close(fd);
 }
@@ -119,9 +130,13 @@ void Serial_Comm::Write_Port(std::string data)
 {
 	int num;  // Number of characters written to port
 	const char *c = data.c_str();
-	num = write(fd, c, data.length());
 	
-	if(num < 0)
-		std::cout << "Write_Port: Write failed" << std::endl;
-	usleep(100);
+	while(port_status)
+	{
+		num = write(fd, c, data.length());
+		
+		if(num < 0)
+			std::cout << "Write_Port: Write failed" << std::endl;
+		usleep(100);
+	}
 }
