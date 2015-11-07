@@ -132,9 +132,9 @@ void Serial_Comm::Send_Packet()
 {
 	while(Port_Status)
 	{
-		while(!packet_queue.empty())
+		while(!send_queue.empty())
 		{
-			std::string packet(packet_queue.pop());
+			std::string packet(send_queue.pop());
 			std:: cout << "Sending: " << packet << std::endl;
 			Write_Port(packet);
 		}
@@ -155,6 +155,11 @@ bool Serial_Comm::Write_Port(std::string data)
 			return false;
 		}
 		
-		usleep(100); // Does Natesh Think I need this
+		//usleep(100); // Does Natesh Think I need this
 		return true;
+}
+
+void Send_Data(std::string data)
+{
+	send_queue.push(data);
 }

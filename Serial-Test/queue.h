@@ -16,7 +16,7 @@ class Queue()
 	public:
 		Queue()
 		bool empty();
-		void push(const std :: string& packet); // whats the purpose of the &
+		void push(const std :: string& packet);
 		std::string pop();
 	
 	private:

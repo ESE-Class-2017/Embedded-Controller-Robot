@@ -24,9 +24,11 @@ class Serial_Comm
 		//~Serial_Comm();
 		void Open_Port();
 		void Initialize_Port();
+		void Send_Data(std::string data);
 		void Close_Port();
 		void Write_Port(std::string data);
 	private:
+		send_queue queue;
 		bool port_status;
 		int fd;
 		std::thread serial;
