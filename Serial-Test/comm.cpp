@@ -120,7 +120,7 @@ void Serial_Comm::Initialize_Port()
 
 void Serial_Comm::Close_Port()
 {
-	port_status = false;
+	//port_status = false;
 	
 	//terminate thread
 	serial.join();
