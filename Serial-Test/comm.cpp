@@ -149,7 +149,11 @@ bool Serial_Comm::Write_Port(std::string data)
 	int num;  // Number of characters written to port
 	const char *c = data.c_str();
 	
+		std::cout << "Write_Port data: " << data << std::endl;
+	
 		num = write(fd, c, data.length());
+		
+		std::cout << "Write_Port num: " << num << std::endl;
 		
 		// check for write error
 		if(num < 0)
