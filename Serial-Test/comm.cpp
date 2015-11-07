@@ -131,12 +131,14 @@ void Serial_Comm::Close_Port()
 
 void Serial_Comm::Send_Packet()
 {
+	std::cout << "status: " << (Port_Status ? "True":"False") << std::endl;
+	std::cout << "queue: " << (send_queue.empty() ? "True":"False") << std::endl;
 	while(port_status)
 	{
 		while(!send_queue.empty())
 		{
 			std::string packet(send_queue.pop());
-			std:: cout << "Sending: " << packet << std::endl;
+			std::cout << "Sending: " << packet << std::endl;
 			Write_Port(packet);
 		}
 	}
