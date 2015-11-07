@@ -162,5 +162,6 @@ bool Serial_Comm::Write_Port(std::string data)
 
 void Serial_Comm::Send_Data(std::string data)
 {
+	std::cout << "Send Data: " << data << std::endl;
 	send_queue.push(data);
 }
