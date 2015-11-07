@@ -4,24 +4,24 @@ Purpose: Class for Queue of Serial Transmission Data
 */
 
 #ifndef _QUEUE_H
-#define _Q_UEUE_H
+#define _QUEUE_H
 
 #include <iostream>
 #include <thread>
 #include <queue>
 #include <mutex>
 
-class Queue()
+class Queue
 {
 	public:
-		Queue()
+		Queue();
 		bool empty();
 		void push(const std :: string& packet);
 		std::string pop();
 	
 	private:
 		std::queue<std::string> queue; // for using c++ queue functions
-		std::mutex mutex   			   // for safe accessing the queue
+		std::mutex mutex;   			   // for safe accessing the queue
 	
 };
 

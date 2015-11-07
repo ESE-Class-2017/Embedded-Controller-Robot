@@ -18,6 +18,7 @@ Version: 00
 #include <string>
 #include <thread>
 #include "comm.h"
+#include "queue.h"
 
 Serial_Comm::Serial_Comm()
 :port_status(false)
@@ -112,7 +113,7 @@ void Serial_Comm::Initialize_Port()
 	
 	port_status = true;
 	
-	serial = std::thread(&Serial_Comm::Write_Port, this);
+	serial = std::thread(&Serial_Comm::Send_Packet, this);
 	
 	
 }
@@ -130,7 +131,7 @@ void Serial_Comm::Close_Port()
 
 void Serial_Comm::Send_Packet()
 {
-	while(Port_Status)
+	while(port_status)
 	{
 		while(!send_queue.empty())
 		{
@@ -159,7 +160,7 @@ bool Serial_Comm::Write_Port(std::string data)
 		return true;
 }
 
-void Send_Data(std::string data)
+void Serial_Comm::Send_Data(std::string data)
 {
 	send_queue.push(data);
 }

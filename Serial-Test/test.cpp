@@ -14,6 +14,7 @@ Author: Josh Osborne
 #include <cstring>
 #include <string>
 #include "comm.h"
+#include "queue.h"
 
 int main()
 {
@@ -22,7 +23,7 @@ int main()
 	comm1.Open_Port();
 	comm1.Initialize_Port();
 
-	for(int i = 0; i < 10000; i++)
+	for(int i = 0; i < 100; i++)
 	{
 		comm1.Write_Port("josh");
 	}

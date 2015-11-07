@@ -13,6 +13,7 @@ Version: 00
 #include <string>
 #include <cstring>
 #include <thread>
+#include "queue.h"
 
 #define BAUD_RATE B9600
 #define SERIAL_PORT "/dev/ttyO4"
@@ -24,11 +25,12 @@ class Serial_Comm
 		//~Serial_Comm();
 		void Open_Port();
 		void Initialize_Port();
-		void Send_Data(std::string data);
 		void Close_Port();
-		void Write_Port(std::string data);
+		bool Write_Port(std::string data);
+		void Send_Data(std::string data);
+		void Send_Packet();
 	private:
-		send_queue queue;
+		Queue send_queue;
 		bool port_status;
 		int fd;
 		std::thread serial;

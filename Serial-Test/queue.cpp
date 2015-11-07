@@ -26,7 +26,7 @@ void Queue::push(const std :: string& packet)
 }
 
 // pop the string that will be written to serial
-std::string pop()
+std::string Queue::pop()
 {
 	MutexLock lock(mutex);
 	
