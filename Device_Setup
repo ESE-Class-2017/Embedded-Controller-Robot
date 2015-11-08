@@ -2,8 +2,8 @@
 
 
 
-sudo echo am33xx_pwm > /sys/devices/platform/bone_capemgr/slots
-sudo echo bone_pwm_P8_13 > /sys/devices/platform/bone_capemgr/slots
-sudo sh -c "echo 'BB-UART4' > /sys/devices/platform/bone_capemgr/slots"
+sudo echo am33xx_pwm > /sys/devices/bone_capemgr.9/slots
+sudo echo bone_pwm_P8_13 > /sys/devices/bone_capemgr.9/slots
+sudo echo BB-UART4 > /sys/devices/bone_capemgr.9/slots
 
-more /sys/devices/platform/bone_capemgr/slots
+more /sys/devices/bone_capemgr.9/slots
