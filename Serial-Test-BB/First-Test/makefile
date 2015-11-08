@@ -4,7 +4,7 @@ CFLAGS = -Wall
 
 default: test
 
-test: test.o comm.o queue.o
+test: test.o comm.o
 	$(CC) $(CFLAGS) -o test test.o comm.o
 
 test.o: test.cpp comm.h

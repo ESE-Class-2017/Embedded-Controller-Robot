@@ -120,7 +120,7 @@ void Serial_Comm::Initialize_Port()
 
 void Serial_Comm::Close_Port()
 {
-	//port_status = false;
+	port_status = false;
 	
 	//terminate thread
 	serial.join();
@@ -131,14 +131,11 @@ void Serial_Comm::Close_Port()
 
 void Serial_Comm::Send_Packet()
 {
-	std::cout << "status: " << ((port_status == true) ? "True":"False") << std::endl;
-	std::cout << "queue: " << (send_queue.empty() ? "True":"False") << std::endl;
 	while(port_status)
 	{
 		while(!send_queue.empty())
 		{
 			std::string packet(send_queue.pop());
-			std::cout << "Sending: " << packet << std::endl;
 			Write_Port(packet);
 		}
 	}
@@ -149,11 +146,7 @@ bool Serial_Comm::Write_Port(std::string data)
 	int num;  // Number of characters written to port
 	const char *c = data.c_str();
 	
-		std::cout << "Write_Port data: " << data << std::endl;
-	
 		num = write(fd, c, data.length());
-		
-		std::cout << "Write_Port num: " << num << std::endl;
 		
 		// check for write error
 		if(num < 0)
@@ -168,6 +161,5 @@ bool Serial_Comm::Write_Port(std::string data)
 
 void Serial_Comm::Send_Data(std::string data)
 {
-	std::cout << "Send Data: " << data << std::endl;
 	send_queue.push(data);
 }

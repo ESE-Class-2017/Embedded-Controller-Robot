@@ -23,9 +23,10 @@ int main()
 	comm1.Open_Port();
 	comm1.Initialize_Port();
 
-	for(int i = 0; i < 5; i++)
+	for(int i = 0; i < 10000; i++)
 	{
 		comm1.Send_Data("josh");
+		usleep(100);
 	}
 	comm1.Close_Port();
 	return 0;
