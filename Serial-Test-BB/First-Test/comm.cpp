@@ -16,7 +16,6 @@ Version: 00
 #include <termios.h>
 #include <cstring>
 #include <string>
-#include <thread>
 #include "comm.h"
 
 Serial_Comm::Serial_Comm()
@@ -123,8 +122,11 @@ bool Serial_Comm::Write_Port(std::string data)
 	int num;  // Number of characters written to port
 	const char *c = data.c_str();
 
-	
+	std::cout << "Write_Port: " << data << std::endl;
+
 		num = write(fd, c, data.length());
+
+	std::cout << "Write_Port: " << num << std::endl;
 		
 		
 		// check for write error

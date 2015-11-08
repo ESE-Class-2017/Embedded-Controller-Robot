@@ -14,7 +14,7 @@ Author: Josh Osborne
 #include <cstring>
 #include <string>
 #include "comm.h"
-#include "queue.h"
+
 
 int main()
 {
