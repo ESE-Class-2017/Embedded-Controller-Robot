@@ -14,12 +14,12 @@ using namespace std;
 
 int main()
 {
-	PWM clock_rate("pwm_test_P8_19.15");
+	PWM clock_rate("pwm_test_P8_13.15");
 	clock_rate.setPeriod(1000);
 	clock_rate.setDutyCycle(50.0f);
 	clock_rate.setPolarity(PWM::ACTIVE_LOW);
 	clock_rate.run();
-	sleep(20);
+	sleep(100);
 	clock_rate.stop();	
 
 	/*GPIO clock_rate(60);
