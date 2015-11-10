@@ -15,6 +15,7 @@ Version: 00
 #include <thread>
 #include "queue.h"
 
+#define LENGTH 100
 #define BAUD_RATE B9600
 #define SERIAL_PORT "/dev/ttyO4"
 
@@ -27,7 +28,7 @@ class Serial_Comm
 		void Initialize_Port();
 		void Close_Port();
 		bool Write_Port(std::string data);
-		std::string Read_Port();
+		std::string Read_Data();
 		void Send_Data(std::string data);
 		void Send_Packet();
 		void Read_Packet();

@@ -79,8 +79,8 @@ void Serial_Comm::Initialize_Port()
 	// Set read input parameters (using select() instead)
 	// -VMIN	number of minimum input characters
 	// -VTIME	input buffer read time
-	//options.c_cc[VMIN] = 0;
-	//options.c_cc[VTIME] = 30;
+	options.c_cc[VMIN] = 0;
+	options.c_cc[VTIME] = 30;
 
 	// Set input parity (No input parity)
 	// -INPCK	Enable parity check
@@ -145,18 +145,24 @@ void Serial_Comm::Send_Packet()
 
 void Serial_Comm::Read_Packet()
 {
-	int num;
-	std::string packet;
+	while(read_queue.empty())
+	{
+		int num;
+		char *buf = new char[LENGTH];
 	
-	num = read(fd, &buf, LENGTH);
+		num = read(fd, buf, LENGTH);
 	
-	if(num == -1);
-		perror("Read_Packet: ");
+		if(num == -1);
+			perror("Read_Packet: ");
+		std::string packet(buf);
+
+		delete[] buf;
 		
-	read_queue.push(packet);
+		read_queue.push(packet);
+	}
 }
 
-std::string Serial_Comm::Read_Port()
+std::string Serial_Comm::Read_Data()
 {
 	return read_queue.pop();
 }
@@ -167,6 +173,7 @@ bool Serial_Comm::Write_Port(std::string data)
 	const char *c = data.c_str();
 	
 		num = write(fd, c, data.length());
+		std::cout << num << std::endl;
 		
 		// check for write error
 		if(num < 0)
