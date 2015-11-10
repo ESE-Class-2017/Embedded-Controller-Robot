@@ -145,20 +145,12 @@ void Serial_Comm::Send_Packet()
 
 void Serial_Comm::Read_Packet()
 {
-	while(read_queue.empty())
+	while(port_status)
 	{
-		int num;
-		char *buf = new char[LENGTH];
-	
-		num = read(fd, buf, LENGTH);
-	
-		if(num == -1);
-			perror("Read_Packet: ");
-		std::string packet(buf);
-
-		delete[] buf;
-		
-		read_queue.push(packet);
+		while(read_queue.empty())
+		{		
+			Read_Port();
+		}
 	}
 }
 
@@ -189,4 +181,60 @@ bool Serial_Comm::Write_Port(std::string data)
 void Serial_Comm::Send_Data(std::string data)
 {
 	send_queue.push(data);
+}
+
+void Serial_Comm::Read_Port()
+{
+		
+	int i;
+	int j;
+	char *buf = new char[LENGTH];
+	int retval;
+	struct timeval tv;	// Time parameter structure for select() 
+	fd_set rfds, temp;	// File descripter flag for the select() function
+	
+	
+	// Set up the input read delay
+	// Clear the set
+	// void FD_ZERO(fd_set *set);
+	FD_ZERO(&rfds);
+
+	// Add given file descriptor from set
+	// void FD_SET(int fd, fd_set *set);
+	FD_SET(fd, &rfds);
+	
+	// Use temp variable because flag needs to be reset each time through loop
+	temp = rfds;
+
+	// Wait for specified time seconds
+	tv.tv_sec = 2;	// seconds
+	tv.tv_usec = 0; // microseconds
+
+	// Do the read
+	// int select(int nfds, fd_set *readfds, fd_set *writefds, fd_set *exceptfds, struct timeval *timeout)
+	retval = select((fd+1), &temp, NULL, NULL, &tv);
+	// Select() failed
+	if(retval == -1)
+	{
+		perror("select() failed.");
+	}
+	// Select() sees data on port
+	else if(retval)
+	{
+		i = read(fd, &buf, LENGTH);
+		if(i == -1)
+			perror("read() Failed");
+	}
+	// Select() sees no data on port
+	else
+	{
+		printf("No data on the port!\n");
+	}
+	//printf("%s\n", buf);
+
+	std::string packet(buf);
+	read_queue.push(packet);
+	
+	delete[] buf;
+	
 }
