@@ -27,13 +27,17 @@ class Serial_Comm
 		void Initialize_Port();
 		void Close_Port();
 		bool Write_Port(std::string data);
+		std::string Read_Port();
 		void Send_Data(std::string data);
 		void Send_Packet();
+		void Read_Packet();
 	private:
 		Queue send_queue;
+		Queue read_queue;
 		bool port_status;
 		int fd;
-		std::thread serial;
+		std::thread serial_write;
+		std::thread serial_read;
 };
 
 #endif
