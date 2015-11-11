@@ -31,6 +31,6 @@ int main()
 
 	//std::cout << comm1.Read_Data() << std::endl;
 
-	//comm1.Close_Port();
+	comm1.Close_Port();
 	return 0;
 }

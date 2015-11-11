@@ -125,7 +125,7 @@ void Serial_Comm::Close_Port()
 	
 	//terminate thread
 	serial_write.join();
-	//serial_read.join();
+	serial_read.join();
 	// Close Port
 	close(fd);
 }
@@ -163,7 +163,7 @@ bool Serial_Comm::Write_Port(std::string data)
 	const char *c = data.c_str();
 	
 		num = write(fd, c, data.length());
-		std::cout << num << std::endl;
+		//std::cout << num << std::endl;
 		
 		// check for write error
 		if(num < 0)
@@ -224,7 +224,7 @@ void Serial_Comm::Read_Port()
 		i = read(fd, buf, LENGTH);
 		
 		//std::cout << "i: " << i << std::endl;
-		//std::cout << "m: " << buf << std::endl;
+		std::cout << "m: " << buf << std::endl;
 		
 		if(i == -1)
 			perror("read() Failed");
