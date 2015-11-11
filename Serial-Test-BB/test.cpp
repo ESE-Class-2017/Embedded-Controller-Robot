@@ -30,7 +30,7 @@ int main()
 	}
 
 	//std::cout << comm1.Read_Data() << std::endl;
-
+	sleep(5);
 	comm1.Close_Port();
 	return 0;
 }
