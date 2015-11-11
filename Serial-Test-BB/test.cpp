@@ -29,8 +29,8 @@ int main()
 		usleep(100);
 	}
 
-	std::cout << comm1.Read_Data() << std::endl;
+	//std::cout << comm1.Read_Data() << std::endl;
 
-	comm1.Close_Port();
+	//comm1.Close_Port();
 	return 0;
 }
