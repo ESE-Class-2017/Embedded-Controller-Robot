@@ -240,6 +240,7 @@ void Serial_Comm::Read_Port()
 
 	std::string packet(buf);
 	std::cout << "read: " << packet << std::endl;
+	std::cout << "len: " << packet.length() << std::endl;
 	read_queue.push(packet);
 	
 	delete[] buf;
