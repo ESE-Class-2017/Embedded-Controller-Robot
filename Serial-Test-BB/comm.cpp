@@ -186,7 +186,8 @@ void Serial_Comm::Read_Port()
 	//std::cout << "Read_Port()" << std::endl;
 		
 	int i;
-	char *buf = new char[LENGTH];
+	//char *buf = new char[LENGTH];
+	char buf[LENGTH];
 	//std::string buf;
 	int retval;
 	struct timeval tv;	// Time parameter structure for select() 
@@ -242,6 +243,6 @@ void Serial_Comm::Read_Port()
 	//std::cout << "len: " << packet.length() << std::endl;
 	read_queue.push(packet);
 	
-	delete[] buf;
+//	delete[] buf;
 	
 }
