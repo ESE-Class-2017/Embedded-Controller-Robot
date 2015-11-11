@@ -23,7 +23,7 @@ int main()
 	comm1.Open_Port();
 	comm1.Initialize_Port();
 
-	for(int i = 0; i < 100; i++)
+	for(int i = 0; i < 10; i++)
 	{
 		comm1.Send_Data("josh");
 		usleep(100);

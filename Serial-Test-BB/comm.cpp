@@ -215,7 +215,7 @@ void Serial_Comm::Read_Port()
 	// Do the read
 	// int select(int nfds, fd_set *readfds, fd_set *writefds, fd_set *exceptfds, struct timeval *timeout)
 	retval = select((fd+1), &temp, NULL, NULL, &tv);
-	std::cout << "retval: " << retval << std::endl;
+	//std::cout << "retval: " << retval << std::endl;
 	// Select() failed
 	if(retval == -1)
 	{
@@ -226,8 +226,8 @@ void Serial_Comm::Read_Port()
 	{
 		i = read(fd, buf, LENGTH);
 		
-		std::cout << "i: " << i << std::endl;
-		std::cout << "m: " << buf << std::endl;
+		//std::cout << "i: " << i << std::endl;
+		//std::cout << "m: " << buf << std::endl;
 		
 		if(i == -1)
 			perror("read() Failed");
@@ -242,9 +242,9 @@ void Serial_Comm::Read_Port()
 	//printf("buf: %s\n", buf);
 
 	std::string packet(buf);
-	std::cout << "read: " << packet << std::endl;
+	//std::cout << "read: " << packet << std::endl;
 	read_queue.push(packet);
 	
-	//delete[] buf;
+	delete[] buf;
 	
 }
