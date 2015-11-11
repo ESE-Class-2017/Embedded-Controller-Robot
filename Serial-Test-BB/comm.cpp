@@ -138,7 +138,7 @@ void Serial_Comm::Send_Packet()
 		while(!send_queue.empty())
 		{
 			std::string packet(send_queue.pop());
-			std::cout << "Send_Packet: " << packet << std::endl;
+			//std::cout << "Send_Packet: " << packet << std::endl;
 			Write_Port(packet);
 		}
 	}
@@ -186,7 +186,7 @@ void Serial_Comm::Send_Data(std::string data)
 
 void Serial_Comm::Read_Port()
 {
-	std::cout << "Read_Port()" << std::endl;
+	//std::cout << "Read_Port()" << std::endl;
 		
 	int i;
 	char *buf = new char[LENGTH];
@@ -227,7 +227,7 @@ void Serial_Comm::Read_Port()
 		i = read(fd, buf, LENGTH);
 		
 		//std::cout << "i: " << i << std::endl;
-		//std::cout << "m: " << buf << std::endl;
+		std::cout << "m: " << buf << std::endl;
 		
 		if(i == -1)
 			perror("read() Failed");
