@@ -227,8 +227,7 @@ void Serial_Comm::Read_Port()
 		//std::cout << "m: " << buf << std::endl;
 		
 		if(i == -1)
-			perror("read() Failed");
-		(void) read(fd, &buf, LENGTH); 
+			perror("read() Failed"); 
 		
 	}
 	// Select() sees no data on port
