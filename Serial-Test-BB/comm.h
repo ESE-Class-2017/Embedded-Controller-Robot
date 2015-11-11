@@ -28,6 +28,7 @@ class Serial_Comm
 		void Initialize_Port();
 		void Close_Port();
 		bool Write_Port(std::string data);
+		void Read_Port();
 		std::string Read_Data();
 		void Send_Data(std::string data);
 		void Send_Packet();

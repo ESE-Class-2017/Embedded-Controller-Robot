@@ -1,5 +1,4 @@
-/*
-Purpose: Weather Station Module
+rpose: Weather Station Module
 	 Serial Communication for BeagleBone
 	 Class Functions
  Author: Josh Osborne
@@ -31,7 +30,7 @@ void Serial_Comm::Open_Port()
 	O_NOCTTY - dont make controlling terminal
 	O_NDELAY - ignore state of DCD line	
 	*/
-	fd = open(SERIAL_PORT, O_RDWR | O_NOCTTY | O_NDELAY | O_NONBLOCK);
+	fd = open(SERIAL_PORT, O_RDWR | O_NOCTTY | O_NDELAY);
 	// Failed to open port
 	if(fd == -1)
 	{
@@ -125,7 +124,7 @@ void Serial_Comm::Close_Port()
 	
 	//terminate thread
 	serial_write.join();
-	//serial_read.join();
+	serial_read.join();
 	// Close Port
 	close(fd);
 }
@@ -138,7 +137,6 @@ void Serial_Comm::Send_Packet()
 		while(!send_queue.empty())
 		{
 			std::string packet(send_queue.pop());
-			std::cout << "Send_Packet: " << packet << std::endl;
 			Write_Port(packet);
 		}
 	}
@@ -146,12 +144,20 @@ void Serial_Comm::Send_Packet()
 
 void Serial_Comm::Read_Packet()
 {
-	while(port_status)
+	while(read_queue.empty())
 	{
-		while(read_queue.empty())
-		{		
-			Read_Port();
-		}
+		int num;
+		char *buf = new char[LENGTH];
+	
+		num = read(fd, buf, LENGTH);
+	
+		if(num == -1);
+			perror("Read_Packet: ");
+		std::string packet(buf);
+
+		delete[] buf;
+		
+		read_queue.push(packet);
 	}
 }
 
@@ -166,7 +172,7 @@ bool Serial_Comm::Write_Port(std::string data)
 	const char *c = data.c_str();
 	
 		num = write(fd, c, data.length());
-		std::cout << num << std::endl;
+		std::cout << num << endl;
 		
 		// check for write error
 		if(num < 0)
@@ -182,69 +188,4 @@ bool Serial_Comm::Write_Port(std::string data)
 void Serial_Comm::Send_Data(std::string data)
 {
 	send_queue.push(data);
-}
-
-void Serial_Comm::Read_Port()
-{
-	std::cout << "Read_Port()" << std::endl;
-		
-	int i;
-	char *buf = new char[LENGTH];
-	//std::string buf;
-	int retval;
-	struct timeval tv;	// Time parameter structure for select() 
-	fd_set rfds, temp;	// File descripter flag for the select() function
-	
-	
-	// Set up the input read delay
-	// Clear the set
-	// void FD_ZERO(fd_set *set);
-	FD_ZERO(&rfds);
-
-	// Add given file descriptor from set
-	// void FD_SET(int fd, fd_set *set);
-	FD_SET(fd, &rfds);
-	
-	// Use temp variable because flag needs to be reset each time through loop
-	temp = rfds;
-
-	// Wait for specified time seconds
-	tv.tv_sec = 2;	// seconds
-	tv.tv_usec = 0; // microseconds
-
-	// Do the read
-	// int select(int nfds, fd_set *readfds, fd_set *writefds, fd_set *exceptfds, struct timeval *timeout)
-	retval = select((fd+1), &temp, NULL, NULL, &tv);
-	std::cout << "retval: " << retval << std::endl;
-	// Select() failed
-	if(retval == -1)
-	{
-		perror("select() failed.");
-	}
-	// Select() sees data on port
-	else if(retval)
-	{
-		i = read(fd, buf, LENGTH);
-		
-		std::cout << "i: " << i << std::endl;
-		std::cout << "m: " << buf << std::endl;
-		
-		if(i == -1)
-			perror("read() Failed");
-		(void) read(fd, &buf, LENGTH); 
-		
-	}
-	// Select() sees no data on port
-	else
-	{
-		printf("No data on the port!\n");
-	}
-	//printf("buf: %s\n", buf);
-
-	std::string packet(buf);
-	std::cout << "read: " << packet << std::endl;
-	read_queue.push(packet);
-	
-	//delete[] buf;
-	
 }
