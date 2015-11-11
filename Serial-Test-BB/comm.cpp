@@ -147,11 +147,8 @@ void Serial_Comm::Send_Packet()
 void Serial_Comm::Read_Packet()
 {
 	while(port_status)
-	{
-		while(read_queue.empty())
-		{		
+	{	
 			Read_Port();
-		}
 	}
 }
 
