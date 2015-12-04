@@ -23,10 +23,13 @@ int main()
 	comm1.Open_Port();
 	comm1.Initialize_Port();
 
-	for(int i = 0; i < 10; i++)
+	for(int i = 0; i < 10000000; i++)
 	{
-		comm1.Send_Data("josh");
-		usleep(100);
+		std::string s = std::to_string(i);
+		comm1.Send_Data("\x55");
+		usleep(1000000);
+		comm1.Send_Data("\xAA");
+		usleep(1000000);
 	}
 
 	//std::cout << comm1.Read_Data() << std::endl;
