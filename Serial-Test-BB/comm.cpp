@@ -114,7 +114,7 @@ void Serial_Comm::Initialize_Port()
 	port_status = true;
 	
 	serial_write = std::thread(&Serial_Comm::Send_Packet, this);
-	serial_read = std::thread(&Serial_Comm::Read_Packet, this);
+//	serial_read = std::thread(&Serial_Comm::Read_Packet, this);
 	
 	
 }
@@ -125,7 +125,7 @@ void Serial_Comm::Close_Port()
 	
 	//terminate thread
 	serial_write.join();
-	serial_read.join();
+	//serial_read.join();
 	// Close Port
 	close(fd);
 }
@@ -224,8 +224,8 @@ void Serial_Comm::Read_Port()
 	{
 		i = read(fd, buf, LENGTH);
 		
-		std::cout << "i: " << i << std::endl;
-		std::cout << "m: " << buf << std::endl;
+		//std::cout << "i: " << i << std::endl;
+		//std::cout << "m: " << buf << std::endl;
 		
 		if(i == -1)
 			perror("read() Failed"); 
@@ -239,7 +239,7 @@ void Serial_Comm::Read_Port()
 	//printf("buf: %s\n", buf);
 
 	std::string packet(buf);
-	//std::cout << "read: " << packet << std::endl;
+	std::cout << "read: " << packet << std::endl;
 	//std::cout << "len: " << packet.length() << std::endl;
 	read_queue.push(packet);
 	
