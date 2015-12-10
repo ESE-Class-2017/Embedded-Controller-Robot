@@ -26,8 +26,8 @@ int main()
 {
 	int num;
 	unsigned int i;
-	vector<int>::size_type j;
-	vector<int> data;
+	unsigned int j;
+	int[10] data;
 	Serial_Comm comm1;
 
 	comm1.Open_Port();
