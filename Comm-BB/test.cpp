@@ -26,7 +26,7 @@ int main()
 {
 	int num;
 	unsigned int i;
-	unsigned int j;
+	vector<int>::size_type j;
 	vector<int> data;
 	Serial_Comm comm1;
 
@@ -48,7 +48,7 @@ int main()
 		cout << j;
 	}
 	
-	for(i = 0; i< data.size(); ++i)
+	for(i = 0; i < data.size(); ++i)
 		cout << data[i] << ' ';
 	
 	cout << endl;
