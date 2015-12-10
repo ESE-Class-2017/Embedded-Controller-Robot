@@ -27,7 +27,7 @@ int main()
 	int num;
 	unsigned int i;
 	unsigned int j;
-	int[10] data;
+	int data[10];
 	Serial_Comm comm1;
 
 	comm1.Open_Port();
@@ -48,7 +48,7 @@ int main()
 		cout << j;
 	}
 	
-	for(i = 0; i < data.size(); ++i)
+	for(i = 0; i < 10; ++i)
 		cout << data[i] << ' ';
 	
 	cout << endl;
