@@ -53,9 +53,14 @@ int main()
 	while(1)
 	{
 		comm1.Send_Data(0xDEADBEEF);
+		comm1.Send_Data(" ");
 		for(i=0; i < 10; i++)
+		{
 			comm1.Send_Data(data[i]);
+			comm1.Send_Data(" ");
+		}	
 		comm1.Send_Data(0xFEED);
+		comm1.Send_Data(" ");
 
 		usleep(100000);
 	}

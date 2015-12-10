@@ -181,7 +181,7 @@ void Serial_Comm::Send_Data(std::string data)
 	send_queue.push(data);
 }
 
-void Serial_Comm::Send_Data(int data)
+void Serial_Comm::Send_Data(unsigned int data)
 {
 	std::string s;
 
