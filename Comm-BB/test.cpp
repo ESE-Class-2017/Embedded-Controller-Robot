@@ -25,8 +25,8 @@ using std::vector;
 int main()
 {
 	int num;
-	int i;
-	int j;
+	unsigned int i;
+	unsigned int j;
 	vector<int> data;
 	Serial_Comm comm1;
 
@@ -42,6 +42,7 @@ int main()
 	{
 		/* generate secret number between 1 and 4096: */
 		num = rand() % 4096 + 1;
+		cout << "num: " << num << endl;
 		data[j] = num;
 		j++;		
 	}
@@ -51,7 +52,7 @@ int main()
 	
 	cout << endl;
 	
-	for(int i = 0; i < 10000000; i++)
+	for(i = 0; i < 10000000; i++)
 	{
 		string s = std::to_string(i);
 		comm1.Send_Data("\x55");
