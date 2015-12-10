@@ -1,5 +1,5 @@
 /*
-Purpose: Test the serial port code
+Purpose: Optical RS-232 Communication for the beaglebone weather station
 Author: Josh Osborne
 */
 
@@ -48,19 +48,28 @@ int main()
 		cout << j;
 	}
 	
-	for(i = 0; i < 10; ++i)
+	for(i = 0; i < 10; i++)
 		cout << data[i] << ' ';
 	
 	cout << endl;
-	
-	for(i = 0; i < 10000000; i++)
+
+	while(1)
+	{
+		comm1.Send_Data(0xDEADBEEF);
+		for(i=0; i < 10; i++)
+			comm1.Send_Data(data[i]);
+		comm1.Send_Data(0xFEED);
+	}
+
+
+	/*for(i = 0; i < 10000000; i++)
 	{
 		string s = std::to_string(i);
 		comm1.Send_Data("\x55");
 		usleep(1000000);
 		//comm1.Send_Data("\xAA");
 		//usleep(1000000);
-	}
+	}*/
 
 	//std::cout << comm1.Read_Data() << std::endl;
 	sleep(5);

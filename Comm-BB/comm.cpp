@@ -181,6 +181,11 @@ void Serial_Comm::Send_Data(std::string data)
 	send_queue.push(data);
 }
 
+void Serial_Comm::Send_Data(int data)
+{
+	send_queue.push(std::to_string(data));
+}
+
 void Serial_Comm::Read_Port()
 {
 	//std::cout << "Read_Port()" << std::endl;

@@ -18,7 +18,7 @@ bool Queue::empty()
 }
 
 // Push packet onto queue
-void Queue::push(const std :: string& packet)
+void Queue::push(const std::string& packet)
 {
 	MutexLock lock(mutex);
 	
