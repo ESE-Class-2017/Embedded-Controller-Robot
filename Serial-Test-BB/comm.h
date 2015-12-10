@@ -24,7 +24,7 @@ class Serial_Comm
 	public:
 		Serial_Comm();
 		//~Serial_Comm();
-		void Open_Port();
+		void Open_Port(std::string port);
 		void Initialize_Port();
 		void Close_Port();
 		bool Write_Port(std::string data);
