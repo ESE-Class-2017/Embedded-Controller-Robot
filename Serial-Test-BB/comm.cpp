@@ -24,7 +24,7 @@ Serial_Comm::Serial_Comm()
 :port_status(false)
 {}
 
-void Serial_Comm::Open_Port()
+void Serial_Comm::Open_Port(std::string port)
 {
 	/* Open the port
 	O_RDWR   - open for read and write
