@@ -13,6 +13,7 @@ Author: Josh Osborne
 #include <termios.h>
 #include <cstring>
 #include <string>
+#include <vector>
 #include "comm.h"
 #include "queue.h"
 
