@@ -44,10 +44,11 @@ int main()
 		num = rand() % 4096 + 1;
 		cout << "num: " << num << endl;
 		data[j] = num;
-		j++;		
+		j++;
+		cout << j;
 	}
 	
-	for(int i=0; i< data.size(); ++i)
+	for(i = 0; i< data.size(); ++i)
 		cout << data[i] << ' ';
 	
 	cout << endl;
