@@ -59,6 +59,8 @@ int main()
 		for(i=0; i < 10; i++)
 			comm1.Send_Data(data[i]);
 		comm1.Send_Data(0xFEED);
+
+		usleep(100000);
 	}
 
 
