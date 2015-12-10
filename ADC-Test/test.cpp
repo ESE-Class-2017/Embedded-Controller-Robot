@@ -9,6 +9,7 @@
 #include<string>
 #include<sstream>
 #include<cmath>
+#include<unistd.h>
 using namespace std;
 
 #define LDR_PATH "/sys/bus/iio/devices/iio:device0/in_voltage"
@@ -25,9 +26,9 @@ int readAnalog(int number){
 
 int main(int argc, char* argv[]){
    cout << "The value on the ADC is:" << endl;
-   for(int i=0; i<1000; i++){
+   for(int i=0; i<10000; i++){
       int value = readAnalog(0);
-      cout << "  = " << readAnalog(0) << "/4095    " << '\r' << flush;
+      cout << "  = " << value << "/4095    " << '\r' << flush;
       usleep(50000);
    }
    return 0;

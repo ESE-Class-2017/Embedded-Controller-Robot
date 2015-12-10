@@ -26,10 +26,8 @@ int main()
 	for(int i = 0; i < 10000000; i++)
 	{
 		std::string s = std::to_string(i);
-		comm1.Send_Data("\x55");
-		usleep(1000000);
-		//comm1.Send_Data("\xAA");
-		//usleep(1000000);
+		comm1.Send_Data("");
+		usleep(100000);
 	}
 
 	//std::cout << comm1.Read_Data() << std::endl;
