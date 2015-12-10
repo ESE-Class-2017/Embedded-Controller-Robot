@@ -45,11 +45,8 @@ int main()
 		cout << "num: " << num << endl;
 		data[j] = num;
 		j++;
-		cout << j;
 	}
-	
-	for(i = 0; i < 10; i++)
-		cout << data[i] << ' ';
+
 	
 	cout << endl;
 
