@@ -17,12 +17,17 @@ Author: Josh Osborne
 #include "comm.h"
 #include "queue.h"
 
+using std::cout;
+using std::endl;
+using std::string;
+using std::vector;
+
 int main()
 {
 	int num;
 	int i;
 	int j;
-	std::vector<int> data;
+	vector<int> data;
 	Serial_Comm comm1;
 
 	comm1.Open_Port();
@@ -41,10 +46,14 @@ int main()
 		j++;		
 	}
 	
+	for(int i=0; i< data.size(); ++i)
+		cout << data[i] << ' ';
+	
+	cout << endl;
 	
 	for(int i = 0; i < 10000000; i++)
 	{
-		std::string s = std::to_string(i);
+		string s = std::to_string(i);
 		comm1.Send_Data("\x55");
 		usleep(1000000);
 		//comm1.Send_Data("\xAA");
