@@ -22,7 +22,7 @@ int main()
 	int num;
 	int i;
 	int j;
-	vector<int> data;
+	std::vector<int> data;
 	Serial_Comm comm1;
 
 	comm1.Open_Port();
