@@ -17,14 +17,14 @@ Version: 00
 
 #define LENGTH 100
 #define BAUD_RATE B9600
-#define SERIAL_PORT "/dev/ttyO4"
+//#define SERIAL_PORT "/dev/ttyO4"
 
 class Serial_Comm
 {
 	public:
 		Serial_Comm();
 		//~Serial_Comm();
-		void Open_Port();
+		void Open_Port(char* port);
 		void Initialize_Port();
 		void Close_Port();
 		bool Write_Port(std::string data);

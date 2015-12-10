@@ -24,18 +24,18 @@ Serial_Comm::Serial_Comm()
 :port_status(false)
 {}
 
-void Serial_Comm::Open_Port()
+void Serial_Comm::Open_Port(char* port)
 {
 	/* Open the port
 	O_RDWR   - open for read and write
 	O_NOCTTY - dont make controlling terminal
 	O_NDELAY - ignore state of DCD line	
 	*/
-	fd = open(SERIAL_PORT, O_RDWR | O_NOCTTY | O_NDELAY | O_NONBLOCK);
+	fd = open(port, O_RDWR | O_NOCTTY | O_NDELAY | O_NONBLOCK);
 	// Failed to open port
 	if(fd == -1)
 	{
-		std::cout << "open_port: unable to open port " << SERIAL_PORT << std::endl;
+		std::cout << "open_port: unable to open port " << port << std::endl;
 		exit(1);
 	}
 	else fcntl(fd, F_SETFL, FNDELAY);
