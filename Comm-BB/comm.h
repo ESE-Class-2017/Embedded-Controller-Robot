@@ -31,7 +31,7 @@ class Serial_Comm
 		void Read_Port();
 		std::string Read_Data();
 		void Send_Data(std::string data);
-		void Send_Data(int data);
+		void Send_Data(unsigned int data);
 		void Send_Packet();
 		void Read_Packet();
 	private:
