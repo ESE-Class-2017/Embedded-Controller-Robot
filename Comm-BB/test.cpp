@@ -50,6 +50,7 @@ int main()
 	Serial_Comm comm1;
 	Serial_Comm comm2;
 	char port1[] = "/dev/ttyO4";
+	char port2[] = "/dev/ttyO1";
 
 	comm1.Open_Port(port1);
 	comm1.Initialize_Port(B1200);
@@ -82,10 +83,7 @@ int main()
 	
 	cout << endl;
 
-cout << "CUM" << endl;
-	if(!comm1.Read_Empty())
-		std::cout << comm1.Read_Data() << std::endl;
-	cout << "natesth" << endl;	
+	
 while(1);
 
 	sleep(5);
@@ -98,7 +96,7 @@ while(1);
 
 void get_humidity(Serial_Comm &comm2)
 {
-	
+	std::cout << comm2.Read_Data() << std::endl;
 }
 
 /*
