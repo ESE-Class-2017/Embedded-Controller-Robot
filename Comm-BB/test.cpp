@@ -133,7 +133,7 @@ void data_transmit(Serial_Comm &comm1)
 		comm1.Send_Data(average());
 		comm1.Send_Data(" ");
 		// Length of Data
-		comm1.Send_Data(LENGTH);
+		comm1.Send_Data(DATA_LENGTH);
 		comm1.Send_Data(" ");
 		// Unique Stop Character
 		comm1.Send_Data("BEEF");
