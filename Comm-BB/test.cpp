@@ -66,7 +66,7 @@ int main()
 	// Start thread for transmitting data
 	std::thread t2 (data_transmit, std::ref(comm1));
 	// Start thread for getting humidity data
-	std::thread t3 (get_humidity, std::ref(comm2));	
+	//std::thread t3 (get_humidity, std::ref(comm2));	
 
 	// Generate random numbers to represent analog data
 	j = 0;
@@ -89,7 +89,7 @@ while(1);
 	sleep(5);
 	//t1.join();
 	t2.join();
-	t3.join();
+	//t3.join();
 	comm1.Close_Port();
 	return 0;
 }
