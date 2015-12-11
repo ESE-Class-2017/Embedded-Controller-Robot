@@ -34,6 +34,7 @@ int average();
 int readAnalog(int number);
 double calc_temp(int adcVal);
 void data_transmit(Serial_Comm &comm1);
+void get_humidity(Serial_Comm &comm2);
 
 
 // Globale Variable to save time
@@ -47,10 +48,14 @@ int main()
 	unsigned int j;
 	//int data[DATA_LENGTH];
 	Serial_Comm comm1;
-	char port[] = "/dev/ttyO4";
+	Serial_Comm comm2;
+	char port1[] = "/dev/ttyO4";
 
-	comm1.Open_Port(port);
-	comm1.Initialize_Port();
+	comm1.Open_Port(port1);
+	comm1.Initialize_Port(B1200);
+
+	comm2.Open_Port(port2);
+	comm2.Initialize_Port(B9600);
 
 	/* initialize random seed: */
 	srand (time(NULL));
@@ -58,7 +63,9 @@ int main()
 	// Start thread to constantly read temperature data
 	//std::thread t1 (get_data);
 	// Start thread for transmitting data
-	std::thread t2 (data_transmit, std::ref(comm1));	
+	std::thread t2 (data_transmit, std::ref(comm1));
+	// Start thread for getting humidity data
+	std::thread t3 (get_humidity, std::ref(comm2));	
 
 	// Generate random numbers to represent analog data
 	j = 0;
@@ -76,11 +83,18 @@ int main()
 	cout << endl;
 
 	std::cout << comm1.Read_Data() << std::endl;
+	while(1);
 	sleep(5);
 	//t1.join();
 	t2.join();
+	t3.join();
 	comm1.Close_Port();
 	return 0;
+}
+
+void get_humidity(Serial_Comm &comm2)
+{
+	
 }
 
 /*

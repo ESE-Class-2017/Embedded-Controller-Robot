@@ -41,7 +41,7 @@ void Serial_Comm::Open_Port(char* port)
 	else fcntl(fd, F_SETFL, FNDELAY);
 }
 
-void Serial_Comm::Initialize_Port()
+void Serial_Comm::Initialize_Port(int BAUD_RATE)
 {
 	struct termios options;
 	
