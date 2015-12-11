@@ -33,6 +33,8 @@ void get_data();
 int average();
 int readAnalog(int number);
 double calc_temp(int adcVal);
+void data_transmit(Serial_Comm &comm1);
+
 
 // Globale Variable to save time
 int data[DATA_LENGTH];
@@ -54,7 +56,9 @@ int main()
 	srand (time(NULL));
 
 	// Start thread to constantly read temperature data
-	//std::thread temperature (get_data);	
+	//std::thread t1 (get_data);
+	// Start thread for transmitting data
+	std::thread t2 (data_transmit, std::ref(comm1));	
 
 	// Generate random numbers to represent analog data
 	j = 0;
@@ -67,17 +71,32 @@ int main()
 		j++;
 	}
 
-	
 
 	
 	cout << endl;
 
-	
+	std::cout << comm1.Read_Data() << std::endl;
+	sleep(5);
+	//t1.join();
+	t2.join();
+	comm1.Close_Port();
+	return 0;
+}
+
+/*
+Purpose: Convert ADC value to temperature in celcuis
+Author: Bryan
+*/
+
+void data_transmit(Serial_Comm &comm1)
+{
+	int i;
+
 	/* Continuous Transmission of Data */
 	while(1)
 	{
 		// Unique Start Character
-		comm1.Send_Data(0xDEAD);
+		comm1.Send_Data(0xFEED);
 		// Seperator
 		comm1.Send_Data(" ");
 		// Sending of the data
@@ -90,21 +109,23 @@ int main()
 		comm1.Send_Data(0xBEEF);
 		comm1.Send_Data(" ");
 
+		// Unique Start Character
+		comm1.Send_Data(0xDEAD);
+		comm1.Send_Data(" ");
+		// Average of Data
+		comm1.Send_Data(average());
+		comm1.Send_Data(" ");
+		// Length of Data
+		comm1.Send_Data(LENGTH);
+		comm1.Send_Data(" ");
+		// Unique Stop Character
+		comm1.Send_Data(0xBEEF);
+		comm1.Send_Data(" ");
+
 		usleep(100000);
 	}
-
-
-	//std::cout << comm1.Read_Data() << std::endl;
-	sleep(5);
-	//temperature.join();
-	comm1.Close_Port();
-	return 0;
 }
 
-/*
-Purpose: Convert ADC value to temperature in celcuis
-Author: Bryan
-*/
 double calc_temp(int adcVal)
 {
 

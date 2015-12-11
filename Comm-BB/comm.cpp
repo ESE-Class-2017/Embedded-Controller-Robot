@@ -114,7 +114,7 @@ void Serial_Comm::Initialize_Port()
 	port_status = true;
 	
 	serial_write = std::thread(&Serial_Comm::Send_Packet, this);
-//	serial_read = std::thread(&Serial_Comm::Read_Packet, this);
+	serial_read = std::thread(&Serial_Comm::Read_Packet, this);
 	
 	
 }
@@ -125,7 +125,8 @@ void Serial_Comm::Close_Port()
 	
 	//terminate thread
 	serial_write.join();
-	//serial_read.join();
+	serial_read.join();
+
 	// Close Port
 	close(fd);
 }
