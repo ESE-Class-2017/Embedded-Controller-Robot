@@ -4,6 +4,7 @@ Purpose: Class definitions for queue
 */
 
 #include "queue.h"
+#include <iostream>
 
 typedef std::lock_guard<std::mutex> MutexLock;
 
@@ -29,6 +30,8 @@ void Queue::push(const std::string& packet)
 std::string Queue::pop()
 {
 	MutexLock lock(mutex);
+	
+	std::cout << "size: " << queue.size() << std::endl;
 	
 	std::string temp = queue.front(); //get string to be sent
 	queue.pop(); 					  // delete string from queue

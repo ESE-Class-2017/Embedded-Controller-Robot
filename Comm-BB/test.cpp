@@ -74,8 +74,11 @@ int main()
 
 	
 	cout << endl;
-
-	std::cout << comm1.Read_Data() << std::endl;
+cout << "CUM" << endl;
+	if(!comm1.Read_Empty())
+		std::cout << comm1.Read_Data() << std::endl;
+	cout << "natesth" << endl;	
+while(1);
 	sleep(5);
 	//t1.join();
 	t2.join();

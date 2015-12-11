@@ -158,6 +158,11 @@ std::string Serial_Comm::Read_Data()
 	return read_queue.pop();
 }
 
+bool Serial_Comm::Read_Empty()
+{
+	return read_queue.empty();
+}
+
 bool Serial_Comm::Write_Port(std::string data)
 {
 	int num;  // Number of characters written to port
@@ -169,7 +174,7 @@ bool Serial_Comm::Write_Port(std::string data)
 		// check for write error
 		if(num < 0)
 		{
-			std::cout << "Write_Port: Write failed" << std::endl;
+			//std::cout << "Write_Port: Write failed" << std::endl;
 			return false;
 		}
 		
