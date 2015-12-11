@@ -240,6 +240,11 @@ void Serial_Comm::Read_Port()
 		
 		if(i == -1)
 			perror("read() Failed"); 
+
+		std::string packet(buf);
+		std::cout << "read: " << packet << std::endl;
+		//std::cout << "len: " << packet.length() << std::endl;
+		read_queue.push(packet);
 		
 	}
 	// Select() sees no data on port
@@ -249,10 +254,7 @@ void Serial_Comm::Read_Port()
 	}
 	//printf("buf: %s\n", buf);
 
-	std::string packet(buf);
-	std::cout << "read: " << packet << std::endl;
-	//std::cout << "len: " << packet.length() << std::endl;
-	read_queue.push(packet);
+
 	
 //	delete[] buf;
 	
