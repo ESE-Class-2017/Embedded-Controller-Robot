@@ -235,8 +235,7 @@ void Serial_Comm::Read_Port()
 	{
 		i = read(fd, buf, LENGTH);
 		
-		//std::cout << "i: " << i << std::endl;
-		//std::cout << "m: " << buf << std::endl;
+		buf[i] = '\0';
 		
 		if(i == -1)
 			perror("read() Failed"); 
