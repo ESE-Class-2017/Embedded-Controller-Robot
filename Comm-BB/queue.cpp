@@ -31,8 +31,6 @@ std::string Queue::pop()
 {
 	MutexLock lock(mutex);
 	
-	std::cout << "size: " << queue.size() << std::endl;
-	
 	std::string temp = queue.front(); //get string to be sent
 	queue.pop(); 					  // delete string from queue
 	

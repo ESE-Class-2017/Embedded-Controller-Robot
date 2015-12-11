@@ -96,7 +96,8 @@ while(1);
 
 void get_humidity(Serial_Comm &comm2)
 {
-	std::cout << comm2.Read_Data() << std::endl;
+	if(!comm2.Read_Empty())
+		std::cout << comm2.Read_Data() << std::endl;
 }
 
 /*
