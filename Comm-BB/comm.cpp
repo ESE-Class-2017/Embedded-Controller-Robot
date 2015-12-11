@@ -190,6 +190,7 @@ void Serial_Comm::Send_Data(std::string data)
 void Serial_Comm::Send_Data(unsigned int data)
 {
 	send_queue.push(std::to_string(data));
+	cout << std::tostring(data) << endl;
 }
 
 void Serial_Comm::Read_Port()
