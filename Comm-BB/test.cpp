@@ -1,5 +1,7 @@
 /*
-Purpose: Optical RS-232 Communication for the beaglebone weather station
+Purpose: Beagle Bone Weather Station
+	- Serial Communication
+	- Reads RTD and sends the temperatures
 Author: Josh Osborne
 */
 

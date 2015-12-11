@@ -16,7 +16,7 @@ Version: 00
 #include "queue.h"
 
 #define LENGTH 100
-#define BAUD_RATE B9600
+#define BAUD_RATE B1200
 //#define SERIAL_PORT "/dev/ttyO4"
 
 class Serial_Comm

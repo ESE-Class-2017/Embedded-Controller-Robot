@@ -183,11 +183,7 @@ void Serial_Comm::Send_Data(std::string data)
 
 void Serial_Comm::Send_Data(unsigned int data)
 {
-	std::string s;
-
-	s = std::to_string(data);
-	std::cout << data;
-	send_queue.push(s);
+	send_queue.push(std::to_string(data));
 }
 
 void Serial_Comm::Read_Port()
