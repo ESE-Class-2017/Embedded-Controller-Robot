@@ -43,8 +43,9 @@ int main()
 	unsigned int j;
 	//int data[DATA_LENGTH];
 	Serial_Comm comm1;
+	char port[] = "/dev/ttyO4";
 
-	comm1.Open_Port("/dev/ttyO4");
+	comm1.Open_Port(port);
 	comm1.Initialize_Port();
 
 	/* initialize random seed: */
@@ -105,7 +106,7 @@ Author: Bryan
 double calc_temp(int adcVal)
 {
 
-	double temp ,Vdiff, adcTemp, gain = 3.94, VperDeg = 3.9, vref =2.5, Rbridge;
+	double temp ,Vdiff, adcTemp, gain = 3.94, VperDeg = 3.9, vref =2.5, Rbridge = 1000;
 
 	// adcVal is the value from the ADC
 
