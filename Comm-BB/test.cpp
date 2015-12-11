@@ -127,7 +127,7 @@ void data_transmit(Serial_Comm &comm1)
 		comm1.Send_Data(" ");
 
 		// Unique Start Character
-		comm1.Send_Data(0xDEAD);
+		comm1.Send_Data("DEAD");
 		comm1.Send_Data(" ");
 		// Average of Data
 		comm1.Send_Data(average());
@@ -136,7 +136,7 @@ void data_transmit(Serial_Comm &comm1)
 		comm1.Send_Data(LENGTH);
 		comm1.Send_Data(" ");
 		// Unique Stop Character
-		comm1.Send_Data(0xBEEF);
+		comm1.Send_Data("BEEF");
 		comm1.Send_Data(" ");
 
 		usleep(100000);
