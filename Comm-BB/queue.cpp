@@ -4,6 +4,7 @@ Purpose: Class definitions for queue
 */
 
 #include "queue.h"
+#include <iostream>
 
 typedef std::lock_guard<std::mutex> MutexLock;
 

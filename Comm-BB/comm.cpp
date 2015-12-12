@@ -24,24 +24,24 @@ Serial_Comm::Serial_Comm()
 :port_status(false)
 {}
 
-void Serial_Comm::Open_Port()
+void Serial_Comm::Open_Port(char* port)
 {
 	/* Open the port
 	O_RDWR   - open for read and write
 	O_NOCTTY - dont make controlling terminal
 	O_NDELAY - ignore state of DCD line	
 	*/
-	fd = open(SERIAL_PORT, O_RDWR | O_NOCTTY | O_NDELAY | O_NONBLOCK);
+	fd = open(port, O_RDWR | O_NOCTTY | O_NDELAY | O_NONBLOCK);
 	// Failed to open port
 	if(fd == -1)
 	{
-		std::cout << "open_port: unable to open port " << SERIAL_PORT << std::endl;
+		std::cout << "open_port: unable to open port " << port << std::endl;
 		exit(1);
 	}
 	else fcntl(fd, F_SETFL, FNDELAY);
 }
 
-void Serial_Comm::Initialize_Port()
+void Serial_Comm::Initialize_Port(int BAUD_RATE)
 {
 	struct termios options;
 	
@@ -114,7 +114,7 @@ void Serial_Comm::Initialize_Port()
 	port_status = true;
 	
 	serial_write = std::thread(&Serial_Comm::Send_Packet, this);
-//	serial_read = std::thread(&Serial_Comm::Read_Packet, this);
+	serial_read = std::thread(&Serial_Comm::Read_Packet, this);
 	
 	
 }
@@ -125,7 +125,8 @@ void Serial_Comm::Close_Port()
 	
 	//terminate thread
 	serial_write.join();
-	//serial_read.join();
+	serial_read.join();
+
 	// Close Port
 	close(fd);
 }
@@ -157,6 +158,11 @@ std::string Serial_Comm::Read_Data()
 	return read_queue.pop();
 }
 
+bool Serial_Comm::Read_Empty()
+{
+	return read_queue.empty();
+}
+
 bool Serial_Comm::Write_Port(std::string data)
 {
 	int num;  // Number of characters written to port
@@ -168,7 +174,7 @@ bool Serial_Comm::Write_Port(std::string data)
 		// check for write error
 		if(num < 0)
 		{
-			std::cout << "Write_Port: Write failed" << std::endl;
+			//std::cout << "Write_Port: Write failed" << std::endl;
 			return false;
 		}
 		
@@ -183,11 +189,8 @@ void Serial_Comm::Send_Data(std::string data)
 
 void Serial_Comm::Send_Data(unsigned int data)
 {
-	std::string s;
-
-	s = std::to_string(data);
-	std::cout << data;
-	send_queue.push(s);
+	send_queue.push(std::to_string(data));
+	cout << std::tostring(data) << endl;
 }
 
 void Serial_Comm::Read_Port()
@@ -233,11 +236,15 @@ void Serial_Comm::Read_Port()
 	{
 		i = read(fd, buf, LENGTH);
 		
-		//std::cout << "i: " << i << std::endl;
-		//std::cout << "m: " << buf << std::endl;
+		buf[i] = '\0';
 		
 		if(i == -1)
 			perror("read() Failed"); 
+
+		std::string packet(buf);
+		std::cout << "read: " << packet << std::endl;
+		//std::cout << "len: " << packet.length() << std::endl;
+		read_queue.push(packet);
 		
 	}
 	// Select() sees no data on port
@@ -247,10 +254,7 @@ void Serial_Comm::Read_Port()
 	}
 	//printf("buf: %s\n", buf);
 
-	std::string packet(buf);
-	std::cout << "read: " << packet << std::endl;
-	//std::cout << "len: " << packet.length() << std::endl;
-	read_queue.push(packet);
+
 	
 //	delete[] buf;
 	
