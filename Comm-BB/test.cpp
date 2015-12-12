@@ -52,9 +52,11 @@ int main()
 	char port1[] = "/dev/ttyO4";
 	char port2[] = "/dev/ttyO1";
 
+	// Open and initialize data transmit comm port
 	comm1.Open_Port(port1);
 	comm1.Initialize_Port(B1200);
 
+	// Open and initalize comm port for communicating with axman
 	comm2.Open_Port(port2);
 	comm2.Initialize_Port(B9600);
 
@@ -84,13 +86,15 @@ int main()
 	cout << endl;
 
 	
-while(1);
+	// run the program forever
+	while(1);
 
 	sleep(5);
 	//t1.join();
 	t2.join();
 	//t3.join();
 	comm1.Close_Port();
+	comm2.Close_Port();
 	return 0;
 }
 
@@ -101,8 +105,7 @@ void get_humidity(Serial_Comm &comm2)
 }
 
 /*
-Purpose: Convert ADC value to temperature in celcuis
-Author: Bryan
+Purpose: Transmit the serial data across the IR channel
 */
 
 void data_transmit(Serial_Comm &comm1)
@@ -142,6 +145,11 @@ void data_transmit(Serial_Comm &comm1)
 		usleep(100000);
 	}
 }
+
+/*
+Purpose: Convert ADC value to temperature in celcuis
+Author: Bryan Peng
+*/
 
 double calc_temp(int adcVal)
 {
