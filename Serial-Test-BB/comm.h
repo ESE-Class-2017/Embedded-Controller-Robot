@@ -17,7 +17,7 @@ Version: 00
 
 #define LENGTH 100
 #define BAUD_RATE B9600
-#define SERIAL_PORT "/dev/ttyO4"
+//#define SERIAL_PORT "/dev/ttyO4"
 
 class Serial_Comm
 {
