@@ -5,9 +5,8 @@ This project was to create a linux robot that could be controlled over wifi.
 
 Phase 1:
 
-Control the robot with a joystick connected and HCS12 board connected directly to a controller PC
-
-The folder phase 1 contains the HCS12 code and the code that was written for the controller PC.
+This folder contains the code for communication over wifi and openCV code for processing shapes taken by a webcam.  
+The code for the HCS12 board is seen in the Embedded Micro Controller Design project.  
 
 
 
